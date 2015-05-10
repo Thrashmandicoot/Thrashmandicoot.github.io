@@ -1,41 +1,78 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <title>Git Wit It | Gittin started </title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="your-stylesheet-link-here.css">
+  <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../stylesheets/default.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/blog-stylesheet.css">
 </head>
 
-<main>
-  <h1>Git Wit It</h1>
-  <h2>Gittin started</h2>
-  <h4>May 3rd, 2015</h4>
+<body>
+  <header>
+    <div class="outer">
+      <div class="middle">
+        <div class="inner">
+          <h1>Git Wit It</h1>
+          <h4>May 3rd, 2015</h4>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <section>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li id="selected"><a href="index.html">Blog</a></li>
+    </ul>
+  </nav>
+
+  <section id="post">
+    <h2>Gittin started</h2>
     <h3>Version Control and You</h3>
     <p>
-      Ever write a story, get into the flow, then realize the meadows you included in your gothic horror story probably didn't pan out as the scene you wanted to set the mood for your readers? Well, unless you saved back before you started writing about the sunshine, you may have a lot of happy elements in your scary plot. Enter version control. Perhaps you have your horror scene set, and suddenly get the urge to experiment with meadows, you could save your gloom treading tales and start working on your more upbeat story. The horror story gets maintained as the main or "master" story and the sunshine experiment becomes a branch where things could be looking up for your heroes. Now, say you go along with your story and suddenly the change just doesn't make sense, you could easily go back to your master copy, keep that new copy of your story, but choose to not incoporate the changes. Even more helpful is that others could collab with you and help you write many versions of your story based of the same original copy with limited room to mess things up with your finall copy.
+      Ever write a story, get into the flow, then realize the meadows you included in your gothic horror story probably didn't pan out as the scene you wanted to set the mood for your readers? Well, unless you saved back before you started writing about the
+      sunshine, you may have a lot of happy elements in your scary plot. Enter version control. Perhaps you have your horror scene set, and suddenly get the urge to experiment with meadows, you could save your gloom treading tales and start working on
+      your more upbeat story. The horror story gets maintained as the main or "master" story and the sunshine experiment becomes a branch where things could be looking up for your heroes. Now, say you go along with your story and suddenly the change just
+      doesn't make sense, you could easily go back to your master copy, keep that new copy of your story, but choose to not incoporate the changes. Even more helpful is that others could collab with you and help you write many versions of your story based
+      of the same original copy with limited room to mess things up with your finall copy.
     </p>
     <h3>Git - How does it Track my Changes?</h3>
     <p>
-        Git works on your computer, and stores it's data locally. It tracks changes through branches and commits. Branches are essentialy a version of your program and allow you to categorize what you're specifically modifying. The master branch is the branch your main program resides on, other branches are features, or areas of your program you're modifying that you have yet to "merge" into your master branch. Lets say you've got a dog program, and your dog program can already walk, it's got models for it's fur etc. but you wanted to add the ability for your dog to bark. You may create a "bark" branch and start working on your bark code without worrying about whether or not you break your main dog program.
-    </p>
-
-     <p>
-        Lets say you start coding and add a few program files that allow your dog program to bark. Any files that you created/modified in a git associated diectory will now be shown via the 'git status' command. You can see that you just added a few bark files, but those changes are not apart of your branch yet and essentially "unsaved". In order to save these new dog bark files to your bark branch you'd use the 'git add .' command which would set all of those files to staging. Staging is essentially a saved file that's ready to be commit, but is not apart of your bark branch yet. If you didn't have any other changes to make, you'd commit these files by typing 'git commit -m "adding the ability to bark"'' which would log your changes along with solidifying your files being apart of that copy of your program, but you're not done there.
+      Git works on your computer, and stores it's data locally. It tracks changes through branches and commits. Branches are essentialy a version of your program and allow you to categorize what you're specifically modifying. The master branch is the branch
+      your main program resides on, other branches are features, or areas of your program you're modifying that you have yet to "merge" into your master branch. Lets say you've got a dog program, and your dog program can already walk, it's got models
+      for it's fur etc. but you wanted to add the ability for your dog to bark. You may create a "bark" branch and start working on your bark code without worrying about whether or not you break your main dog program.
     </p>
 
     <p>
-        Last but not least, when you feel your bark code is well reviewed, working, and will play nice with your main dog program, it's time to merge those changes. You'll jump back into your master branch by using 'git co master' then add merge your bark branch by typing 'git merge bark' which will add all of those files from bark to your master program, and the ability for your dog to bark
+      Lets say you start coding and add a few program files that allow your dog program to bark. Any files that you created/modified in a git associated diectory will now be shown via the 'git status' command. You can see that you just added a few bark files,
+      but those changes are not apart of your branch yet and essentially "unsaved". In order to save these new dog bark files to your bark branch you'd use the 'git add .' command which would set all of those files to staging. Staging is essentially a
+      saved file that's ready to be commit, but is not apart of your bark branch yet. If you didn't have any other changes to make, you'd commit these files by typing 'git commit -m "adding the ability to bark"'' which would log your changes along with
+      solidifying your files being apart of that copy of your program, but you're not done there.
+    </p>
+
+    <p>
+      Last but not least, when you feel your bark code is well reviewed, working, and will play nice with your main dog program, it's time to merge those changes. You'll jump back into your master branch by using 'git co master' then add merge your bark branch
+      by typing 'git merge bark' which will add all of those files from bark to your master program, and the ability for your dog to bark
     </p>
 
 
     <h3>Github - Answer why storing code is right for you</h3>
     <p>
-        Github acts as a remote area to store your sourcecode. It's simple enough to learn and use, and allows you to keep a master copy off your computer, which helps if gremlins decide to invade your home and destroy your hard drive. Outside of being an insurance policy against tech gremlins, it acts as a way for others to be able to collab with you and work on versions of your code. They may add a new cool feature to your dog like "flying" (dog's can't fly silly!) and you could choose to add that feature to your main program when they initiate a pull request.
+      Github acts as a remote area to store your sourcecode. It's simple enough to learn and use, and allows you to keep a master copy off your computer, which helps if gremlins decide to invade your home and destroy your hard drive. Outside of being an insurance
+      policy against tech gremlins, it acts as a way for others to be able to collab with you and work on versions of your code. They may add a new cool feature to your dog like "flying" (dog's can't fly silly!) and you could choose to add that feature
+      to your main program when they initiate a pull request.
     </p>
 
     <p>
-        Well, that's all for now, hope you Git with It and Learn some more about Git!
+      Well, that's all for now, hope you Git with It and Learn some more about Git!
     </p>
+
   </section>
-</main>
+
+  <footer>
+    <p>&copy; 2015 Ashton Alexander. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
