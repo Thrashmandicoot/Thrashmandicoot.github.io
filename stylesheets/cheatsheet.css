@@ -25,6 +25,10 @@ header h1 {
   font-size: 4em;
 }
 
+code {
+  font-family: 'Inconsolata', sans-serif;
+}
+
 .outer {
     display: table;
     position: absolute;
