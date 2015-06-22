@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Active Record | A Quick Overview</title>
+  <meta charset="UTF-8">
+  <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../stylesheets/default.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/blog-stylesheet.css">
+</head>
+
+<body>
+  <header>
+    <div class="outer">
+      <div class="middle">
+        <div class="inner">
+          <h1>Active Record</h1>
+          <h4>June 22nd, 2015</h4>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li id="selected"><a href="index.html">Blog</a></li>
+      <li><a href="../projects/index.html">Projects</a></li>
+    </ul>
+  </nav>
+
+  <section id="post">
+
+    <h2>A Quick Overview</h2>
+
+    <p>
+    Active Record takes a database table and wraps it in a class. Each instance of a class object is represented as a row on the table. This in turn gives the programmer the ability to use specific methods to modify and query against the tables that are being used across their program.
+    </p>
+    <p>
+    Lets take a look at active record in action - say you wanted to build a blog, and that blog has posts, and those posts have comments. We could easily setup this posts object within Rails.
+    </p>
+    <p>
+    For example, say we generated a posts table using rails, and we gave it attributes such as title and body (for the title of the post and the text in that post respectively), this posts table would then inherit from ActiveRecord ( Posts < ActiveRecord::Base) and gain various methods that allow you to query against that table, and to add additional attributes to that table and associate that table with other tables.
+    </p>
+    <p>
+    So now we have a posts table, but what if we want to represent comments? We could easily use rails to generate a new comments table and associate those comments to our posts. Our comments would have active record methods available to them as well, and we could quickly modify that data.
+    </p>
+    <p>
+    For instance, say we had a comment we wanted to remove, comments.destroy(<insert id of comment here>) would allow us to kill that comment (say if we wanted to tie that comment to a delete button that we later gave control of to a user), and this would be the “Destroy” part of CRUD (fully known as create, read, update and destroy).
+    </p>
+    <p>
+    What about create? Create would allow us to easily create a new post, for instance, say we called posts.create( :title => “Hello World”, :body => “Welcome to our website!”) this would create a new instance of our posts object that would get an ID (auto generated) a title (“Hello World”) and body (“Welcome to our website!”) which would then be represented on our table.
+    </p>
+    <p>
+    Since we've created a post, we can now access or read that information, which is the R portion of CRUD.
+    </p>
+    <p>
+    Update is what allows us to update our posts information, say if we wanted to change the title, or add change functionality as part of one of our website's functions and destroy we've already covered.
+    </p>
+    <p>
+    This concludes our quick overview of Active Record. Hope you enjoyed!
+    </p>
+
+
+  </section>
+
+  <footer>
+    <p>&copy; 2015 Ashton Alexander. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
