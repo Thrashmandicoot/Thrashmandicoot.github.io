@@ -6,6 +6,7 @@ $(document).ready(function() {
   var zombieId = 1;
   //Player/Monster Stats
   var zombieHP = 1;
+  var monsterStorage = {};
   var playerHP = 3;
   //Images
   var zombie = document.getElementById('zombie');
@@ -20,6 +21,7 @@ $(document).ready(function() {
   var row = 1;
   var dx = 0;
   var dy = 0;
+  var frame = 0;
 
   window.addEventListener('keydown', function(event) {
   switch (event.keyCode) {
@@ -79,8 +81,7 @@ $(document).ready(function() {
     ctx.drawImage(block.image, block.x, block.y, blockHW, blockHW);
   }
 
-  function Zombie(name, block_Id) {
-    this.name = name;
+  function Zombie(block_Id) {
     this.hp = zombieHP;
     this.blockId = block_Id;
     this.speed = 1;
@@ -153,9 +154,16 @@ $(document).ready(function() {
     return placement;
   }
 
+  //generate zombies
+  var genZombies = function(amount){
+    for(var i = 0; i < amount; i++){
+      monsterStorage[Math.floor(Math.random()*100)] = new Zombie(randomLoc());
+    }
+  };
+
   //Instantiate new zombies/players
   initialCanvas();
-  var carl = new Zombie("Player", randomLoc());
+  genZombies(1);
   var gamer = new Player("Player", randomLoc());
   render();
 
@@ -173,7 +181,17 @@ $(document).ready(function() {
 
   //Run the Game
   var mainloop = function() {
-        updateBlock(carl,randomSpeed(carl.speed),randomSpeed(carl.speed));
+        if(frame%20 === 0){
+            for(var monster in monsterStorage){
+              var id = monsterStorage[monster];
+              updateBlock(id,randomSpeed(id.speed),randomSpeed(id.speed));
+            }
+        }
+        if(frame%150 === 0 && zombieId < 10){
+          genZombies(1);
+        }
+        console.log(frame);
+        frame ++;
         render();
     };
 
