@@ -24,41 +24,41 @@ $(document).ready(function() {
   var frame = 0;
 
   window.addEventListener('keydown', function(event) {
-  switch (event.keyCode) {
-    case 37: // Left
-      updateBlock(gamer, 0, -1);
-      break;
+    switch (event.keyCode) {
+      case 37: // Left
+        updateBlock(gamer, 0, -1);
+        break;
 
-    case 38: // Up
-      updateBlock(gamer, -1, 0);
-      break;
+      case 38: // Up
+        updateBlock(gamer, -1, 0);
+        break;
 
-    case 39: // Right
-      updateBlock(gamer, 0, 1);
-      break;
+      case 39: // Right
+        updateBlock(gamer, 0, 1);
+        break;
 
-    case 40: // Down goes left
-      updateBlock(gamer, 1, 0);
-      break;
-  }
-}, false);
+      case 40: // Down goes left
+        updateBlock(gamer, 1, 0);
+        break;
+    }
+  }, false);
 
-  var updateBlock = function(character,rowAdj,colAdj){
+  var updateBlock = function(character, rowAdj, colAdj) {
     var currentIndex = character.blockId;
     var currentRow = blockArr[currentIndex].row;
     var currentCol = blockArr[currentIndex].col;
     var newBlockRow = currentRow + rowAdj;
     var newBlockCol = currentCol + colAdj;
     var newBlockIndex = -1;
-    for(var i = 0; i < blockArr.length; i++){
+    for (var i = 0; i < blockArr.length; i++) {
       var checkBlock = blockArr[i];
-      if(checkBlock.row === newBlockRow && checkBlock.col === newBlockCol){
+      if (checkBlock.row === newBlockRow && checkBlock.col === newBlockCol) {
         newBlockIndex = i;
         break;
       }
     }
 
-    if( newBlockIndex !== -1 && blockArr[newBlockIndex].type === "block"){
+    if (newBlockIndex !== -1 && blockArr[newBlockIndex].type === "block") {
       blockArr[newBlockIndex].type = blockArr[currentIndex].type;
       blockArr[currentIndex].type = "block";
       character.blockId = newBlockIndex;
@@ -93,7 +93,7 @@ $(document).ready(function() {
     zombieId++;
   }
 
-  function Player(name,block_Id){
+  function Player(name, block_Id) {
     this.name = name;
     this.hp = playerHP;
     this.blockId = block_Id;
@@ -108,12 +108,12 @@ $(document).ready(function() {
         dx = 0;
         dy += blockHW;
         col = 1;
-        row ++;
+        row++;
       }
 
       blockArr[i] = new Block(dx, dy, col, row);
       dx += blockHW;
-      col ++;
+      col++;
     }
     console.log(blockArr.length);
   }
@@ -134,7 +134,7 @@ $(document).ready(function() {
       if (blockArr[i].type === "block") {
         blockArr[i].image = block;
       }
-      if (blockArr[i].drawn === 0){
+      if (blockArr[i].drawn === 0) {
         drawBlock(blockArr[i]);
       }
 
@@ -142,12 +142,12 @@ $(document).ready(function() {
     }
   }
 
-  function randomLoc(){
+  function randomLoc() {
     var inUse = 0;
     var placement;
-    while(inUse !== 1){
+    while (inUse !== 1) {
       placement = Math.floor(Math.random() * blockArr.length);
-      if (blockArr[placement].passable === 1){
+      if (blockArr[placement].passable === 1) {
         inUse = 1;
       }
     }
@@ -155,9 +155,9 @@ $(document).ready(function() {
   }
 
   //generate zombies
-  var genZombies = function(amount){
-    for(var i = 0; i < amount; i++){
-      monsterStorage[Math.floor(Math.random()*100)] = new Zombie(randomLoc());
+  var genZombies = function(amount) {
+    for (var i = 0; i < amount; i++) {
+      monsterStorage[Math.floor(Math.random() * 100)] = new Zombie(randomLoc());
     }
   };
 
@@ -168,54 +168,56 @@ $(document).ready(function() {
   render();
 
   //randomspeed
-  var randomSpeed = function(speed){
-    var chance = Math.floor(Math.random()*100+1);
-    if(chance > 50){
-      return Math.floor(Math.random()*speed+1);
-    }
-    else {
-      return -(Math.floor(Math.random()*speed+1));
+  var randomSpeed = function(speed) {
+    var chance = Math.floor(Math.random() * 100 + 1);
+    if (chance > 50) {
+      return Math.floor(Math.random() + 1);
+    } else {
+      return -(Math.floor(Math.random() + 1));
     }
   };
 
 
   //Run the Game
   var mainloop = function() {
-        if(frame%20 === 0){
-            for(var monster in monsterStorage){
-              var id = monsterStorage[monster];
-              updateBlock(id,randomSpeed(id.speed),randomSpeed(id.speed));
-            }
-        }
-        if(frame%150 === 0 && zombieId < 10){
-          genZombies(1);
-        }
-        console.log(frame);
-        frame ++;
-        render();
-    };
-
-  function gameloop(){
-      var animFrame = window.requestAnimationFrame ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              window.oRequestAnimationFrame      ||
-              window.msRequestAnimationFrame     ||
-              null ;
-
-      if ( animFrame !== null ) {
-
-          var recursiveAnim = function() {
-              mainloop();
-              animFrame( recursiveAnim, canvas );
-          };
-
-          // start the mainloop
-          animFrame( recursiveAnim, canvas );
-      } else {
-          var ONE_FRAME_TIME = 1000.0 / 60.0 ;
-          setInterval( mainloop, ONE_FRAME_TIME );
+    if (frame % 20 === 0) {
+      for (var monster in monsterStorage) {
+        var id = monsterStorage[monster];
+        updateBlock(id, randomSpeed(id.speed), randomSpeed(id.speed));
       }
     }
-    gameloop();
+    if (frame % 150 === 0) {
+      genZombies(1);
+    }
+    if (frame % 200 === 0) {
+      frame = 0;
+    }
+    console.log(frame);
+    frame++;
+    render();
+  };
+
+  function gameloop() {
+    var animFrame = window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      null;
+
+    if (animFrame !== null) {
+
+      var recursiveAnim = function() {
+        mainloop();
+        animFrame(recursiveAnim, canvas);
+      };
+
+      // start the mainloop
+      animFrame(recursiveAnim, canvas);
+    } else {
+      var ONE_FRAME_TIME = 1000.0 / 60.0;
+      setInterval(mainloop, ONE_FRAME_TIME);
+    }
+  }
+  gameloop();
 });

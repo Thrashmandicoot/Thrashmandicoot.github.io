@@ -15,6 +15,12 @@
 </head>
 
 <body>
+  <div class="target" style="min-height:500px;">
+    <h1><u>Mah Zombie Games!</u></h1>
+    <h2 id='name'>Name: </h2>
+    <h2 id='hp'>HP: </h2>
+    <h2 id='position'>Position: </h2>
+  </div>
   <canvas id="canvas" width="500" height="500"></canvas>
   <script type="text/javascript" src="zombies.js"></script>
   <div style="display:none;">
@@ -22,12 +28,12 @@
     <img id="player" src="imgs/player.jpg">
     <img id="block" src="imgs/grass.jpg">
   </div>
-  <div class="target" style="min-height:500px;">
-    <h1><u>Mah Zombie Games!</u></h1>
-    <h2>Name: </h2>
-    <h2>HP: </h2>
-    <h2>Position: </h2>
-  </div>
+  <div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <audio controls loop autoplay="autoplay">
+      <source src="audio/johnstalvern.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
+</div>
 </body>
 
 </html>

@@ -1,9 +1,10 @@
-canvas {
-  border: 1px solid;
-  float:left;
-}
-
 .target {
   float:left;
   border: 1px solid;
+}
+
+canvas {
+  border: 1px solid;
+  float:left;
+  position: relative;
 }
