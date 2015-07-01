@@ -3,40 +3,65 @@ $(document).ready(function() {
   //Game Variables
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
-  var blockId = 1;
   var zombieId = 1;
+  //Player/Monster Stats
+  var zombieHP = 1;
+  var playerHP = 3;
+  //Images
+  var zombie = document.getElementById('zombie');
+  var block = document.getElementById('block');
+  var player = document.getElementById('player');
+  var gamestate = true;
+  //Block values
+  var blockId = 1;
   var blockHW = (canvas.height / 10);
   var blockArr = [];
   var col = 1;
   var row = 1;
   var dx = 0;
   var dy = 0;
-  var zombieHP = 1;
-  var playerHP = 3;
-  var zombie = document.getElementById('zombie');
-  var block = document.getElementById('block');
-  var player = document.getElementById('player');
-  var gamestate = true;
 
-  function Main() {
-    initialCanvas();
+  window.addEventListener('keydown', function(event) {
+  switch (event.keyCode) {
+    case 37: // Left
+      updateBlock(gamer, 0, -1);
+      break;
+
+    case 38: // Up
+      updateBlock(gamer, -1, 0);
+      break;
+
+    case 39: // Right
+      updateBlock(gamer, 0, 1);
+      break;
+
+    case 40: // Down goes left
+      updateBlock(gamer, 1, 0);
+      break;
   }
+}, false);
 
-  // function Update(){
-  //   var update = function (modifier) {
-  // 	if (38 in keysDown) { // Player holding up
-  // 		hero.row -= 1;
-  // 	}
-  // 	// if (40 in keysDown) { // Player holding down
-  // 	// 	hero.y += ;
-  // 	// }
-  // 	// if (37 in keysDown) { // Player holding left
-  // 	// 	hero.x -= hero.speed * modifier;
-  // 	// }
-  // 	// if (39 in keysDown) { // Player holding right
-  // 	// 	hero.x += hero.speed * modifier;
-  // 	// }
-  // };
+  var updateBlock = function(character,rowAdj,colAdj){
+    var currentIndex = character.blockId;
+    var currentRow = blockArr[currentIndex].row;
+    var currentCol = blockArr[currentIndex].col;
+    var newBlockRow = currentRow + rowAdj;
+    var newBlockCol = currentCol + colAdj;
+    var newBlockIndex = -1;
+    for(var i = 0; i < blockArr.length; i++){
+      var checkBlock = blockArr[i];
+      if(checkBlock.row === newBlockRow && checkBlock.col === newBlockCol){
+        newBlockIndex = i;
+        break;
+      }
+    }
+
+    if( newBlockIndex !== -1 && blockArr[newBlockIndex].type === "block"){
+      blockArr[newBlockIndex].type = blockArr[currentIndex].type;
+      blockArr[currentIndex].type = "block";
+      character.blockId = newBlockIndex;
+    }
+  };
 
   function Block(x, y, col_x, row_y) {
     this.x = x;
@@ -44,9 +69,9 @@ $(document).ready(function() {
     this.col = col_x;
     this.row = row_y;
     this.id = blockId;
-    this.image = block;
     this.type = "block";
     this.passable = 1;
+    this.drawn = 0;
     blockId++;
   }
 
@@ -54,22 +79,25 @@ $(document).ready(function() {
     ctx.drawImage(block.image, block.x, block.y, blockHW, blockHW);
   }
 
-  function Zombie(name, blockId) {
+  function Zombie(name, block_Id) {
     this.name = name;
     this.hp = zombieHP;
-    this.blockId = blockArr[blockId].id;
-    blockArr[blockId].type = "zombie";
-    blockArr[blockId].passable = 0;
+    this.blockId = block_Id;
+    this.speed = 1;
+    this.row = blockArr[block_Id].row;
+    this.col = blockArr[block_Id].col;
+    blockArr[block_Id].type = "zombie";
+    blockArr[block_Id].passable = 0;
     this.id = zombieId;
     zombieId++;
   }
 
-  function Player(name,blockId){
+  function Player(name,block_Id){
     this.name = name;
     this.hp = playerHP;
-    this.blockId = blockArr[blockId].id;
-    blockArr[blockId].type = "player";
-    blockArr[blockId].passable = 0;
+    this.blockId = block_Id;
+    blockArr[block_Id].type = "player";
+    blockArr[block_Id].passable = 0;
   }
 
   function initialCanvas() {
@@ -83,10 +111,10 @@ $(document).ready(function() {
       }
 
       blockArr[i] = new Block(dx, dy, col, row);
-      drawBlock(blockArr[i]);
       dx += blockHW;
       col ++;
     }
+    console.log(blockArr.length);
   }
 
   function render() {
@@ -105,8 +133,10 @@ $(document).ready(function() {
       if (blockArr[i].type === "block") {
         blockArr[i].image = block;
       }
+      if (blockArr[i].drawn === 0){
+        drawBlock(blockArr[i]);
+      }
 
-      drawBlock(blockArr[i]);
       dx += blockHW;
     }
   }
@@ -123,10 +153,51 @@ $(document).ready(function() {
     return placement;
   }
 
-  //run game
-  Main();
-
-  var carl = new Zombie("Carl", randomLoc());
+  //Instantiate new zombies/players
+  initialCanvas();
+  var carl = new Zombie("Player", randomLoc());
   var gamer = new Player("Player", randomLoc());
   render();
+
+  //randomspeed
+  var randomSpeed = function(speed){
+    var chance = Math.floor(Math.random()*100+1);
+    if(chance > 50){
+      return Math.floor(Math.random()*speed+1);
+    }
+    else {
+      return -(Math.floor(Math.random()*speed+1));
+    }
+  };
+
+
+  //Run the Game
+  var mainloop = function() {
+        updateBlock(carl,randomSpeed(carl.speed),randomSpeed(carl.speed));
+        render();
+    };
+
+  function gameloop(){
+      var animFrame = window.requestAnimationFrame ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame    ||
+              window.oRequestAnimationFrame      ||
+              window.msRequestAnimationFrame     ||
+              null ;
+
+      if ( animFrame !== null ) {
+
+          var recursiveAnim = function() {
+              mainloop();
+              animFrame( recursiveAnim, canvas );
+          };
+
+          // start the mainloop
+          animFrame( recursiveAnim, canvas );
+      } else {
+          var ONE_FRAME_TIME = 1000.0 / 60.0 ;
+          setInterval( mainloop, ONE_FRAME_TIME );
+      }
+    }
+    gameloop();
 });
