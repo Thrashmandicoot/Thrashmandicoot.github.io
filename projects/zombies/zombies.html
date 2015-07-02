@@ -17,8 +17,8 @@
 <body>
   <div class="target" style="min-height:500px;">
     <h1><u>Mah Zombie Games!</u></h1>
-    <h2 id='name'>Name: </h2>
-    <h2 id='hp'>HP: </h2>
+    <h2 id='hp'></h2>
+    <h2 id='zkillcount'></h2>
     <h2 id='position'>Position: </h2>
   </div>
   <canvas id="canvas" width="500" height="500"></canvas>
@@ -27,9 +27,10 @@
     <img id="zombie" src="imgs/zombie.png">
     <img id="player" src="imgs/player.jpg">
     <img id="block" src="imgs/grass.jpg">
+    <img id="fire" src="imgs/firesplosion.jpg">
   </div>
   <div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <audio controls loop autoplay="autoplay">
+    <audio id="audio" controls loop autoplay="autoplay">
       <source src="audio/johnstalvern.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
   </audio>

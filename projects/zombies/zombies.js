@@ -7,7 +7,9 @@ $(document).ready(function() {
   //Player/Monster Stats
   var zombieHP = 1;
   var monsterStorage = {};
-  var playerHP = 3;
+  var playerHP = 10;
+  var frags = 0;
+  var points = 0;
   //Images
   var zombie = document.getElementById('zombie');
   var block = document.getElementById('block');
@@ -22,24 +24,44 @@ $(document).ready(function() {
   var dx = 0;
   var dy = 0;
   var frame = 0;
+  var positions = ["up","down","right","left"];
+  var sound = document.getElementById("audio");
+  var prevSoundLvl = 0;
 
   window.addEventListener('keydown', function(event) {
     switch (event.keyCode) {
       case 37: // Left
         updateBlock(gamer, 0, -1);
+        gamer.position = "left";
         break;
 
       case 38: // Up
         updateBlock(gamer, -1, 0);
+        gamer.position = "up";
         break;
 
       case 39: // Right
         updateBlock(gamer, 0, 1);
+        gamer.position = "right";
         break;
 
-      case 40: // Down goes left
+      case 40: // Down
         updateBlock(gamer, 1, 0);
+        gamer.position = "down";
         break;
+
+      case 83: // Sound maybe 115
+        if (sound.volume === 0.0){
+          sound.volume = prevSoundLvl;
+        }
+        else {
+          prevSoundLvl = sound.volume;
+          sound.volume = 0.0;
+        }
+        break;
+
+      case 32: //spacebar fire
+        gamer.gun();
     }
   }, false);
 
@@ -85,6 +107,7 @@ $(document).ready(function() {
     this.hp = zombieHP;
     this.blockId = block_Id;
     this.speed = 1;
+    this.position = positions[Math.floor(Math.random()*positions.length)];
     this.row = blockArr[block_Id].row;
     this.col = blockArr[block_Id].col;
     blockArr[block_Id].type = "zombie";
@@ -97,8 +120,15 @@ $(document).ready(function() {
     this.name = name;
     this.hp = playerHP;
     this.blockId = block_Id;
+    this.position = "down";
     blockArr[block_Id].type = "player";
     blockArr[block_Id].passable = 0;
+    var that = this;
+    this.gun = function(){
+      var fireStart = that.blockId;
+      var fireEnd = Math.floor(Math.rand()*2 + 1);
+
+    };
   }
 
   function initialCanvas() {
@@ -184,6 +214,7 @@ $(document).ready(function() {
       for (var monster in monsterStorage) {
         var id = monsterStorage[monster];
         updateBlock(id, randomSpeed(id.speed), randomSpeed(id.speed));
+        id.position = positions[Math.floor(Math.random()*positions.length)];
       }
     }
     if (frame % 150 === 0) {
@@ -192,7 +223,10 @@ $(document).ready(function() {
     if (frame % 200 === 0) {
       frame = 0;
     }
-    console.log(frame);
+    //console.log(frame);
+    if (gamer.hp === 0 || gamer.hp < 0){
+      prompt("You have died, but you fragged " + zombieKills + " Zombies.");
+    }
     frame++;
     render();
   };
