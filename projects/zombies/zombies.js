@@ -14,6 +14,7 @@ $(document).ready(function() {
   var zombie = document.getElementById('zombie');
   var block = document.getElementById('block');
   var player = document.getElementById('player');
+  var fire = document.getElementById('fire');
   var gamestate = true;
   //Block values
   var blockId = 1;
@@ -33,21 +34,29 @@ $(document).ready(function() {
       case 37: // Left
         updateBlock(gamer, 0, -1);
         gamer.position = "left";
+        console.log("Column: " + blockArr[gamer.blockId].col);
+        console.log("Row: " + blockArr[gamer.blockId].row);
         break;
 
       case 38: // Up
         updateBlock(gamer, -1, 0);
         gamer.position = "up";
+        console.log("Column: " + blockArr[gamer.blockId].col);
+        console.log("Row: " + blockArr[gamer.blockId].row);
         break;
 
       case 39: // Right
         updateBlock(gamer, 0, 1);
         gamer.position = "right";
+        console.log("Column: " + blockArr[gamer.blockId].col);
+        console.log("Row: " + blockArr[gamer.blockId].row);
         break;
 
       case 40: // Down
         updateBlock(gamer, 1, 0);
         gamer.position = "down";
+        console.log("Column: " + blockArr[gamer.blockId].col);
+        console.log("Row: " + blockArr[gamer.blockId].row);
         break;
 
       case 83: // Sound maybe 115
@@ -61,7 +70,10 @@ $(document).ready(function() {
         break;
 
       case 32: //spacebar fire
-        gamer.gun();
+        console.log("space pressed");
+        fight(gamer);
+        //console.log(grabBlock(1,1));
+        break;
     }
   }, false);
 
@@ -103,10 +115,15 @@ $(document).ready(function() {
     ctx.drawImage(block.image, block.x, block.y, blockHW, blockHW);
   }
 
+  function drawOverBlock(block, image) {
+    ctx.drawImage(image, block.x, block.y, blockHW, blockHW);
+  }
+
   function Zombie(block_Id) {
     this.hp = zombieHP;
     this.blockId = block_Id;
     this.speed = 1;
+    this.range = 0;
     this.position = positions[Math.floor(Math.random()*positions.length)];
     this.row = blockArr[block_Id].row;
     this.col = blockArr[block_Id].col;
@@ -115,20 +132,59 @@ $(document).ready(function() {
     this.id = zombieId;
     zombieId++;
   }
+  //grabs a block based on the row and column fed to it
+  var grabBlock = function(trow, tcol){
+    for(i = 0; i < blockArr.length; i++){
+      if (blockArr[i].row === trow){
+        if(blockArr[i].col === tcol){
+          console.log(blockArr[i]);
+          return blockArr[i];
+        }
+      }
+    }
+  };
+
+  var damageCharacter = function(character, amount){
+    character.hp -= amount;
+  };
+
+  //fight function takes a character and range, finds a point based on range and deals damage to that area
+  var fight = function(character){
+    var newRow = blockArr[character.blockId].row;
+    var newCol = blockArr[character.blockId].col;
+    console.log(character.position);
+    var rangeAtk = character.range;
+    switch(character.position){
+
+      case "left":
+        var point = grabBlock(newRow, (newCol - Math.floor(Math.random()*rangeAtk + 1)));
+        console.log("The point is: " + point);
+         if(point.hp){
+           damageCharacter(point, 1);
+         }
+        drawOverBlock(point, fire);
+
+        break;
+      case "up":
+
+        break;
+      case "right":
+
+        break;
+      case "down":
+
+        break;
+    }
+  };
 
   function Player(name, block_Id) {
     this.name = name;
     this.hp = playerHP;
+    this.range = 2;
     this.blockId = block_Id;
     this.position = "down";
     blockArr[block_Id].type = "player";
     blockArr[block_Id].passable = 0;
-    var that = this;
-    this.gun = function(){
-      var fireStart = that.blockId;
-      var fireEnd = Math.floor(Math.rand()*2 + 1);
-
-    };
   }
 
   function initialCanvas() {
@@ -215,17 +271,18 @@ $(document).ready(function() {
         var id = monsterStorage[monster];
         updateBlock(id, randomSpeed(id.speed), randomSpeed(id.speed));
         id.position = positions[Math.floor(Math.random()*positions.length)];
+        //console.log(id.position);
       }
     }
     if (frame % 150 === 0) {
-      genZombies(1);
+      genZombies(Math.floor(Math.random()*3));
     }
     if (frame % 200 === 0) {
       frame = 0;
     }
     //console.log(frame);
     if (gamer.hp === 0 || gamer.hp < 0){
-      prompt("You have died, but you fragged " + zombieKills + " Zombies.");
+      prompt("You have died, but you fragged " + frags + " Demons.");
     }
     frame++;
     render();
