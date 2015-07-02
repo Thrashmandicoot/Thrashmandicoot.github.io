@@ -110,13 +110,15 @@ $(document).ready(function() {
     this.drawn = 0;
     blockId++;
   }
-
+  //image function is messed up here
   function drawBlock(block) {
     ctx.drawImage(block.image, block.x, block.y, blockHW, blockHW);
   }
 
   function drawOverBlock(block, image) {
-    ctx.drawImage(image, block.x, block.y, blockHW, blockHW);
+    for(i=0; i < 10; i++){
+      ctx.drawImage(fire, block.x, block.y, blockHW, blockHW);
+    }
   }
 
   function Zombie(block_Id) {
@@ -138,7 +140,7 @@ $(document).ready(function() {
       if (blockArr[i].row === trow){
         if(blockArr[i].col === tcol){
           console.log(blockArr[i]);
-          return blockArr[i];
+          return blockArr[i].id;
         }
       }
     }
@@ -153,16 +155,17 @@ $(document).ready(function() {
     var newRow = blockArr[character.blockId].row;
     var newCol = blockArr[character.blockId].col;
     console.log(character.position);
-    var rangeAtk = character.range;
+    var rangeAtk = Math.floor(Math.random()*character.range + 1);
     switch(character.position){
 
       case "left":
-        var point = grabBlock(newRow, (newCol - Math.floor(Math.random()*rangeAtk + 1)));
+        var point = grabBlock(newRow, newCol - rangeAtk);
+        console.log("The range is: " + rangeAtk);
         console.log("The point is: " + point);
-         if(point.hp){
-           damageCharacter(point, 1);
-         }
-        drawOverBlock(point, fire);
+        //  if(point.hp){
+        //    damageCharacter(point, 1);
+        //  }
+        drawOverBlock(blockArr[point], fire);
 
         break;
       case "up":
