@@ -25,7 +25,7 @@ $(document).ready(function() {
   var dx = 0;
   var dy = 0;
   var frame = 0;
-  var positions = ["up","down","right","left"];
+  var positions = ["up", "down", "right", "left"];
   var sound = document.getElementById("audio");
   var prevSoundLvl = 0;
 
@@ -62,10 +62,9 @@ $(document).ready(function() {
         break;
 
       case 83: // Sound maybe 115
-        if (sound.volume === 0.0){
+        if (sound.volume === 0.0) {
           sound.volume = prevSoundLvl;
-        }
-        else {
+        } else {
           prevSoundLvl = sound.volume;
           sound.volume = 0.0;
         }
@@ -100,6 +99,42 @@ $(document).ready(function() {
       character.blockId = newBlockIndex;
     }
   };
+  function Map() {
+      this.blocks = blockArr;
+      this.characters = [];
+
+      this.create = function(){
+
+      };
+
+      //takes place of update block
+      this.moveCharacter = function(character, rowA, colA){
+          newBlock = this.locateNewBlock(character.block.x + rowA, characer.block.y + colA);
+          if(!newBlock){
+              //invalid block
+              return false;
+          }
+
+          if(newBlock.populate(character)){
+              //block now has the character
+              character.block = newBlock; //let character know its new block
+          } else {
+              //block taken
+              return false;
+          }
+      };
+      this.locateNewBlock = function(x, y){
+          for(var i = 0; i < this.blocks.length; i++){
+              if(this.blocks[i].row == x && this.blocks[i].col == y){
+                  return this.blocks[i];
+              }
+          }
+          return false;
+      };
+  }
+
+  //monster storage on map javascript
+  //separate out characters from blocks - priority 1
 
   function Block(x, y, col_x, row_y) {
     this.x = x;
@@ -111,6 +146,21 @@ $(document).ready(function() {
     this.passable = 1;
     this.drawn = 0;
     blockId++;
+
+    this.character = null;
+    this.populate = function(character){
+        if(this.passable){
+            this.character = character;
+            return true;
+        }
+        return false;
+    };
+    //block.character.type [zombie || player]
+
+    this.draw = function(){
+        ctx.drawImage(this.image, this.x, this.y, blockHW, blockHW);
+    };
+    //block.draw()
   }
   //image function is messed up here
 
@@ -122,12 +172,28 @@ $(document).ready(function() {
     ctx.drawImage(image, block.x, block.y, blockHW, blockHW);
   }
 
+  function Character(block_Id){
+    // block id, passable
+    this.block = null;
+
+  }
+
+  function Player(name, block_Id) {
+    this.name = name;
+    this.hp = playerHP;
+    this.range = 3;
+    this.blockId = block_Id;
+    this.position = "down";
+    blockArr[block_Id].type = "player";
+    blockArr[block_Id].passable = 0;
+  }
+
   function Zombie(block_Id) {
     this.hp = zombieHP;
     this.blockId = block_Id;
     this.speed = 1;
     this.range = 0;
-    this.position = positions[Math.floor(Math.random()*positions.length)];
+    this.position = positions[Math.floor(Math.random() * positions.length)];
     this.row = blockArr[block_Id].row;
     this.col = blockArr[block_Id].col;
     blockArr[block_Id].type = "zombie";
@@ -136,10 +202,10 @@ $(document).ready(function() {
     zombieId++;
   }
   //grabs a block based on the row and column fed to it
-  var grabBlock = function(trow, tcol){
-    for(i = 0; i < blockArr.length; i++){
-      if (blockArr[i].row === trow){
-        if(blockArr[i].col === tcol){
+  var grabBlock = function(trow, tcol) {
+    for (i = 0; i < blockArr.length; i++) {
+      if (blockArr[i].row === trow) {
+        if (blockArr[i].col === tcol) {
           console.log(blockArr[i]);
           return blockArr[i].id;
         }
@@ -147,17 +213,17 @@ $(document).ready(function() {
     }
   };
 
-  var damageCharacter = function(character, amount){
+  var damageCharacter = function(character, amount) {
     character.hp -= amount;
   };
 
   //fight function takes a character and range, finds a point based on range and deals damage to that area
-  var fight = function(character){
+  var fight = function(character) {
     var newRow = blockArr[character.blockId].row;
     var newCol = blockArr[character.blockId].col;
     console.log(character.position);
-    var rangeAtk = Math.floor(Math.random()*character.range + 1);
-    switch(character.position){
+    var rangeAtk = Math.floor(Math.random() * character.range + 1);
+    switch (character.position) {
 
       case "left":
         var point = grabBlock(newRow, newCol - rangeAtk);
@@ -179,16 +245,6 @@ $(document).ready(function() {
         break;
     }
   };
-
-  function Player(name, block_Id) {
-    this.name = name;
-    this.hp = playerHP;
-    this.range = 3;
-    this.blockId = block_Id;
-    this.position = "down";
-    blockArr[block_Id].type = "player";
-    blockArr[block_Id].passable = 0;
-  }
 
   function initialCanvas() {
     for (i = 0; i < (canvas.width / (canvas.width / 100)); i++) {
@@ -273,7 +329,7 @@ $(document).ready(function() {
       for (var monster in monsterStorage) {
         var id = monsterStorage[monster];
         updateBlock(id, randomSpeed(id.speed), randomSpeed(id.speed));
-        id.position = positions[Math.floor(Math.random()*positions.length)];
+        id.position = positions[Math.floor(Math.random() * positions.length)];
         //console.log(id.position);
       }
     }
@@ -284,7 +340,7 @@ $(document).ready(function() {
       frame = 0;
     }
     //console.log(frame);
-    if (gamer.hp === 0 || gamer.hp < 0){
+    if (gamer.hp === 0 || gamer.hp < 0) {
       prompt("You have died, but you fragged " + frags + " Demons.");
     }
     frame++;
@@ -314,4 +370,6 @@ $(document).ready(function() {
     }
   }
   gameloop();
+
+  Map.create();
 });
