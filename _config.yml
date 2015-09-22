@@ -36,7 +36,7 @@ disqus_shortname: "Thrashmandicoot"
 
 
 
-# url: "http://Thrashmandicoot.github.io"
-# imgrepo: "http://Thrashmandicoot.github.io/static/img"
-url: "http://127.0.0.1:4000"
-imgrepo: "http://127.0.0.1:4000/static/img"
+url: "http://thrashmandicoot.github.io"
+imgrepo: "http://thrashmandicoot.github.io/static/img"
+# url: "http://127.0.0.1:4000"
+# imgrepo: "http://127.0.0.1:4000/static/img"
