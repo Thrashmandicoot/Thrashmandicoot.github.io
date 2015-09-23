@@ -1,3 +1,28 @@
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+.share, .inshare, .twitshare, .twitfollow{
+float:left;
+    padding-right: 10px;
+    height:20px;
+    overflow:hidden;
+}
+
+.fb_iframe_widget span {
+  vertical-align: top !important;
+}
+
 .post table{
     border-top:2px solid #777;
     border-bottom: 2px solid #777;
