@@ -10,7 +10,6 @@ function backToTop() {
   var st = $(".page-scrollTop");
   var $window = $(window);
   var topOffset;
-  //滚页面才显示返回顶部
   $window.scroll(function() {
     var currnetTopOffset = $window.scrollTop();
     if (currnetTopOffset > 0 && topOffset > currnetTopOffset) {
@@ -21,7 +20,6 @@ function backToTop() {
     topOffset = currnetTopOffset;
   });
 
-  //点击回到顶部
   st.click(function() {
     $("body").animate({
       scrollTop: "0"

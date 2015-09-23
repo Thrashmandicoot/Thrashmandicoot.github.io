@@ -2,9 +2,6 @@
     layout: null
 ---
 
-/**
- * 页面ready方法
- */
 $(document).ready(function() {
     generateContent();
     shareButtons();
@@ -22,9 +19,7 @@ function shareButtons() {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 }
-/**
- * 侧边目录
- */
+
 function generateContent() {
     var $mt = $('.toc');
     var $toc;
@@ -35,7 +30,6 @@ function generateContent() {
 }
 
 function disqus(){
-    /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = '{{site.disqus_shortname}}';
 
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
