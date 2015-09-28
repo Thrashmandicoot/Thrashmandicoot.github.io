@@ -7,6 +7,7 @@ styles: archive.css
 isNavItem: true
 ---
 <section id="cd-timeline" class="cd-container">
+  <!-- Gistter -->
     <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
         <div class="cd-timeline-img cd-picture">
             <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
@@ -15,10 +16,12 @@ isNavItem: true
         <div class="cd-timeline-content">
             <a href="{{ site.baseurl }}/Gistter"><h4>Angular Project: Gistter</h4></a>
             <br>
-            <a href="https://github.com/Thrashmandicoot/Gistter"><h4>Github Repo</h4></a>
+            <a href="https://github.com/thrashmandicoot/Gistter" target="_blank"><span class="octicon octicon-mark-github"></span></a>
             <span class="cd-date">2015-09-28</span>
         </div>
     </div>
+    
+    <!-- Scene -->
     <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
         <div class="cd-timeline-img cd-picture">
             <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
@@ -27,9 +30,23 @@ isNavItem: true
         <div class="cd-timeline-content">
             <a href="http://scenes.herokuapp.com/"><h4>DBC Final Project: Scene</h4></a>
             <br>
-            <a href="https://github.com/Thrashmandicoot/Scene"><h4>Github Repo</h4></a>
+            <a href="https://github.com/thrashmandicoot/Scene" target="_blank"><span class="octicon octicon-mark-github"></span></a>
             <span class="cd-date">2015-09-07</span>
         </div>
     </div>
+
+    <!-- Battletracker -->
+      <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
+          <div class="cd-timeline-img cd-picture">
+              <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
+          </div>
+
+          <div class="cd-timeline-content">
+              <a href="https://battletracker-phoenix.herokuapp.com/"><h4>Phoenix/Elixir Project: Battletracker</h4></a>
+              <br>
+              <a href="https://github.com/thrashmandicoot/battletracker-phoenix" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+              <span class="cd-date">2015-08-31</span>
+          </div>
+      </div>
 
 </section>
