@@ -7,45 +7,103 @@ styles: archive.css
 isNavItem: true
 ---
 <section id="cd-timeline" class="cd-container">
+  <!-- Jekyll Blog -->
+    <div class="cd-timeline-block">
+        <div class="cd-timeline-img cd-picture">
+            <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
+        </div>
+
+        <div class="cd-timeline-content">
+            <a href="{{ site.baseurl }}"><h4>Jekyll Project: My Github Blog</h4></a>
+            <p>
+              Welcome to my Blog! This blog was built utilizing Jekyll, javascript and jquery.
+              It utilizes google analytics, and social share buttons.
+            </p>
+            <p>
+              The theme is a modified version of <a href="http://blog.rainyalley.com/">RainyAlley</a>.
+            </p>
+            <a href="https://github.com/Thrashmandicoot/thrashmandicoot.github.io" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+        </div>
+    </div>
+
   <!-- Gistter -->
-    <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
+    <div class="cd-timeline-block">
         <div class="cd-timeline-img cd-picture">
             <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
         </div>
 
         <div class="cd-timeline-content">
             <a href="{{ site.baseurl }}/Gistter"><h4>Angular Project: Gistter</h4></a>
-            <br>
+            <p>
+              Gistter is about finding what your twitter network is up to on Github.
+            </p>
+            <p>
+              When you go to Gistter, you're prompted to connect your twitter. Once
+              you hit connect, you go through Twitter's OAuth, and Gistter then
+              pulls in your tweets. Gistter then finds which of your tweets contain
+              Github links, it then displays those tweets and then queries Github to find
+              out all the repos those github users are contributing to.
+            </p>
+            <p>
+              Gistter utilizes the Angular JS framework and built to be a completely
+              front-end application. OAuth is handled via oauth.io and styling is done
+              with bootstrap.
+            </p>
             <a href="https://github.com/thrashmandicoot/Gistter" target="_blank"><span class="octicon octicon-mark-github"></span></a>
-            <span class="cd-date">2015-09-28</span>
         </div>
     </div>
 
     <!-- Scene -->
-    <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
+    <div class="cd-timeline-block">
         <div class="cd-timeline-img cd-picture">
             <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
         </div>
 
         <div class="cd-timeline-content">
             <a href="http://scenes.herokuapp.com/"><h4>DBC Final Project: Scene</h4></a>
-            <br>
+            <p>
+              Scene is about bringing local artists and businesses together to turn
+              boring spaces into beautiful and meaningful Scenes.
+            </p>
+            <p>
+              Scene was my final group project at Dev Bootcamp. I got the experience
+              of pitching the concept, getting it selected, and leading a team of
+              4 other developers to build Scene from the ground up in less
+              than 1 week.
+            </p>
+            <p>
+              Scene was built utilizing the Ruby on Rails framework, Javascript, JQuery,
+              Postgres, Google Maps API and a splash of Angular. It was styled utilzing
+              Bootstrap, and Atomic CSS.
+            </p>
             <a href="https://github.com/thrashmandicoot/Scene" target="_blank"><span class="octicon octicon-mark-github"></span></a>
-            <span class="cd-date">2015-09-07</span>
         </div>
     </div>
 
     <!-- Battletracker -->
-      <div class="cd-timeline-block" id="{{ post.date | date: '%Y-%m-%d' }}">
+      <div class="cd-timeline-block">
           <div class="cd-timeline-img cd-picture">
               <img src="{{ '/icon-picture.svg' | prepend: site.imgrepo }}" alt="Picture">
           </div>
 
           <div class="cd-timeline-content">
-              <a href="https://battletracker-phoenix.herokuapp.com/"><h4>Phoenix/Elixir Project: Battletracker</h4></a>
-              <br>
+              <a href="https://battletracker-phoenix.herokuapp.com/"><h4>Elixir/Phoenix Project: Battletracker</h4></a>
+              <p>
+                Battletracker is my independent research project from DBC. I chose
+                to do my project in the <a href="http://elixir-lang.org/">Elixir programming language</a>
+                to get a feel for a functional programming language. I built a website over a weekend
+                utilizing the Phoenix framework.
+              </p>
+              <p>
+                If you're familiar with Ruby on Rails... C is to Ruby as Erlang is to Elixir and Ruby
+                is to Rails as Elixir is to Phoenix.
+              </p>
+              <p>
+                Overall site was a lot of fun to build, and the Elixir language was
+                crazy and interesting. I am definitely looking forward to
+                see if the Elixir programming language takes off.
+              </p>
               <a href="https://github.com/thrashmandicoot/battletracker-phoenix" target="_blank"><span class="octicon octicon-mark-github"></span></a>
-              <span class="cd-date">2015-08-25</span>
           </div>
       </div>
 
