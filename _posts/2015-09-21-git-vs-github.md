@@ -2,7 +2,7 @@
 layout: post
 title: Git vs Github
 tags: git github version-control
-categories: musings
+categories: version-control
 ---
 <div class="toc"></div>
 
