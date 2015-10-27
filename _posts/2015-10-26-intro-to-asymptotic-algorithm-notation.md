@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Intro to Big-O Asymptotic Algorithm Notation
+title: Intro to Asymptotic Algorithm Notation
 tags: algorithms big-o big-theta big-omega asymptotic-notation
 categories: algorithms
 ---
@@ -12,7 +12,7 @@ Any developer who has fundamental experience programming can design an algorithm
 to accomplish a task, but how do we know if it was the best design call? Enter
 Asymptotic Notation. Big-O, Big-Omega, and Big-Theta are used in asymptotic
 notation to understand the speed and efficiency of any given algorithm based
-on that algorithms input size. Knowing the best and worst case scenarios 
+on that algorithms input size. Knowing the best and worst case scenarios
 for your design decisions is a valuable tool for any aspiring developer, so
 we'll cover these concepts briefly.
 
