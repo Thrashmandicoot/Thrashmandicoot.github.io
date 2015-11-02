@@ -6,6 +6,7 @@ categories: algorithms
 ---
 <div class="toc"></div>
 ![big-o-complexity]({{ site.url }}/static/img/big-o-complexity.png)
+-compliments of [http://bigocheatsheet.com/](http://bigocheatsheet.com/)
 
 # Introduction
 
@@ -77,8 +78,7 @@ Here's an example of this function being ran with the code above.
 There's a few best cases (Big-Omega). First is if the number doesn't exist in the array,
 it'll just return "Can't find number!". The other best case is if the target
 ends up being the number we're looking for. Therefor best case is a constant of
-1 or Ω(1). This isn't very helpful, so we'll stick with average/expected case
-and worst cases.
+1 or Ω(1). This isn't very helpful, so we'll stick with worst cases.
 
 ## Worst Case (Big-O)
 
