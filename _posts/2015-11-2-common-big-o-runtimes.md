@@ -5,7 +5,7 @@ tags: algorithms big-o
 categories: algorithms
 ---
 <div class="toc"></div>
-![big-o-complexity](static/img/big-o-complexity.png)
+![big-o-complexity]({{ site.url }}/assets/big-o-complexity.png)
 
 # Introduction
 
@@ -70,11 +70,11 @@ half.
 
 Here's an example of this function being ran with the code above.
 
-![binaryChop](static/img/binaryChop.png)
+![binaryChop]({{ site.url }}/assets/binaryChop.png)
 
-## Best Case (Big-Omega || Big-Ω)
+## Best Case (Big-Ω)
 
-There's a few best cases, first is if the number doesn't exist in the array,
+There's a few best cases (Big-Omega). First is if the number doesn't exist in the array,
 it'll just return "Can't find number!". The other best case is if the target
 ends up being the number we're looking for. Therefor best case is a constant of
 1 or Ω(1). This isn't very helpful, so we'll stick with average/expected case
