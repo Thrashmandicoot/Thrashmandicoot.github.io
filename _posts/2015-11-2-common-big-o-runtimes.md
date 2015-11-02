@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Common Big-O Runtimes
-tags: algorithms big-o
+tags: algorithms big-o javascript
 categories: algorithms
 ---
 <div class="toc"></div>
