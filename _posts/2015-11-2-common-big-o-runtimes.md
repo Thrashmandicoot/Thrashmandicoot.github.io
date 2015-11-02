@@ -5,7 +5,7 @@ tags: algorithms big-o
 categories: algorithms
 ---
 <div class="toc"></div>
-![big-o-complexity]({{ site.url }}/assets/big-o-complexity.png)
+![big-o-complexity]({{ site.url }}/static/img/big-o-complexity.png)
 
 # Introduction
 
@@ -70,7 +70,7 @@ half.
 
 Here's an example of this function being ran with the code above.
 
-![binaryChop]({{ site.url }}/assets/binaryChop.png)
+![binaryChop]({{ site.url }}/static/img/binaryChop.png)
 
 ## Best Case (Big-Ω)
 
